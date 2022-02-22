@@ -1,0 +1,4 @@
+#ignroe the intelij IDE files
+.idea
+out/
+Laborator1.iml
