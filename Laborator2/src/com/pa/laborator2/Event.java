@@ -3,18 +3,18 @@ package com.pa.laborator2;
 public class Event {
     private String name;
     private int size;
+    /*
+     * Am presupus ca toate evnimentele au loc in aceeasi zi. Am impus in settere:
+     *  - start si end >= 0
+     *  = start so emd <= 24
+     *  - start < end
+     * */
     private int start;
     private int end;
 
     public Event(String name, int size, int start, int end) {
         this.name = name;
         this.size = size;
-        /*
-        * Am presupus ca toate evnimentele au loc in aceeasi zi si in consecinta am impus:
-        *  - start si end >= 0
-        *  = start so emd <= 24
-        *  - start < end
-        * */
         this.start = start;
         this.end = end;
     }
