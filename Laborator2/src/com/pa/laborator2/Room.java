@@ -1,22 +1,15 @@
 package com.pa.laborator2;
 
-public class Room {
+import java.util.Objects;
+
+public abstract class Room {
     private int number;
     private int capacity;
-    private RoomType type;
 
-    public Room(int number, int capacity, RoomType type) {
-        this.type = type;
-        this.capacity = capacity;
+
+    protected Room(int number, int capacity) {
         this.number = number;
-    }
-
-    public RoomType getType() {
-        return type;
-    }
-
-    public void setType(RoomType type) {
-        this.type = type;
+        this.capacity = capacity;
     }
 
     public int getCapacity() {
@@ -36,11 +29,23 @@ public class Room {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Room room = (Room) o;
+        return getNumber() == room.getNumber() && getCapacity() == room.getCapacity();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getNumber(), getCapacity());
+    }
+
+    @Override
     public String toString() {
         return "Room{" +
                 "number=" + number +
                 ", capacity=" + capacity +
-                ", type=" + type +
                 '}';
     }
 }

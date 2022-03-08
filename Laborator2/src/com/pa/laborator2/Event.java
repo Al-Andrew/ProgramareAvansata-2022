@@ -1,5 +1,7 @@
 package com.pa.laborator2;
 
+import java.util.Objects;
+
 public class Event {
     private String name;
     private int size;
@@ -66,7 +68,26 @@ public class Event {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Event event = (Event) o;
+        return getSize() == event.getSize() && getStart() == event.getStart() && getEnd() == event.getEnd() && Objects.equals(getName(), event.getName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName(), getSize(), getStart(), getEnd());
+    }
+
+    @Override
     public String toString() {
         return "Event{" + "name='" + name + '\'' + ", size=" + size + ", start=" + start + ", end=" + end + '}';
+    }
+
+    public boolean overlaps(Event other){
+        if(other ==null ) return false;
+
+        return (this.start >= other.start && this.start <= other.end) || (other.start >= this.start && other.start <= this.end);
     }
 }
