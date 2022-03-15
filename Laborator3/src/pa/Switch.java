@@ -8,7 +8,9 @@ public class Switch extends Node {
 
     @Override
     public String toString() {
-        return "Switch{" + super.toString() + ',' +
-                "}";
+        StringBuilder builder = super.getUnEndedStringBuilder("Switch");
+
+        builder.append('}');
+        return builder.toString();
     }
 }

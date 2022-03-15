@@ -19,9 +19,11 @@ public class Router extends Node implements Identifiable {
 
     @Override
     public String toString() {
-        return "Router{" + super.toString() + ',' +
-                "address='" + address + '\'' +
-                '}';
+        StringBuilder builder = super.getUnEndedStringBuilder("Router");
+
+        builder.append("    address: ").append(address).append(System.lineSeparator());
+        builder.append('}');
+        return builder.toString();
     }
 }
 

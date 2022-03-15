@@ -26,9 +26,11 @@ public class Computer extends Node implements Identifiable, Storage {
 
     @Override
     public String toString() {
-        return "Computer{" + super.toString() + ',' +
-                "address='" + address + '\'' +
-                ", storageCapacity=" + storageCapacity +
-                '}';
+        StringBuilder builder = super.getUnEndedStringBuilder("Computer");
+
+        builder.append("    address: ").append(address).append(System.lineSeparator());
+        builder.append("    storage: ").append(storageCapacity).append(System.lineSeparator());
+        builder.append('}');
+        return builder.toString();
     }
 }
