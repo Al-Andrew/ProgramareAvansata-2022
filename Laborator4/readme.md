@@ -1,4 +1,4 @@
-#Laborator 4
+# Laborator 4
 
 ### Intrebare:
 - trebuie neaparat sa prezentam tema pentru a primi punctajul pe ea? Eu am facut si uploadat temele de la laboratoarele 2 si 3 dar nu am fost punctat.
@@ -9,7 +9,7 @@
 
 ### Strazile sunt luate aleator
 
-#Tasklist:
+# Tasklist:
 
 - [x] Compulsory
   - [x] Create a Maven project.
