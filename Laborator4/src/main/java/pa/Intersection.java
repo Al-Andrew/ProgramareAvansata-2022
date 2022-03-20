@@ -3,7 +3,7 @@ package pa;
 import java.util.Objects;
 
 public class Intersection {
-    private String name;
+    private final String name;
 
 
     public Intersection(String name) {
@@ -27,5 +27,10 @@ public class Intersection {
         return Objects.hash(name);
     }
 
-
+    @Override
+    public String toString() {
+        return "Intersection{" +
+                "name='" + name + '\'' +
+                '}';
+    }
 }

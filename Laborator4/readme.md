@@ -18,9 +18,9 @@
   - [x] Create a list of streets, using LinkedList implementation and sort it by the length, using a comparator expressed as a lambda-expression or method reference. Make sure all the objects are comparable.
   - [x] Create a set of intersections, using a HashSet implementation. Verify the property that a Set does not contain duplicates. 
 - [ ] Homework
-  - [ ] Create a class that describes the city.
+  - [x] Create a class that describes the city.
   - [ ] Using Java Stream API, write a query that display all the streets that are longer than a specified value and join at least 3 streets.
-  - [ ] Use a third-party library in order to generate random fake names for intersections and streets.
+  - [x] Use a third-party library in order to generate random fake names for intersections and streets.
   - You may use this package of JGraphT in order to solve the problem (or other library).
   - Note: A personal implementation of the algorithm will be will be scored extra (+1p). 
 - [ ] Bonus
