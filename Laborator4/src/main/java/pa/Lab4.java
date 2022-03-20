@@ -1,14 +1,12 @@
 package pa;
 
 import java.util.*;
-import java.util.random.RandomGenerator;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import com.github.javafaker.*;
 
-import javax.print.attribute.standard.MediaSize;
 
 public class Lab4 {
      public static void main(String[] args) {

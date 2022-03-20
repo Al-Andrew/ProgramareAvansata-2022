@@ -1,10 +1,8 @@
 package pa;
 
-import com.sun.source.tree.ReturnTree;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 public class Street {
     private final String name;
