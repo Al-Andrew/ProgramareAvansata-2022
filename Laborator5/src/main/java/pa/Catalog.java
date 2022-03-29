@@ -1,6 +1,9 @@
 package pa;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,9 +11,20 @@ public class Catalog {
     private String title;
     private List<CatalogItem> items;
 
+    Catalog() {
+        this.title = null;
+        this.items = null;
+    }
+
     Catalog(String title) {
         this.title = title;
         this.items = new ArrayList<>();
+    }
+
+    @JsonCreator
+    Catalog(@JsonProperty("title") String title, @JsonProperty("items") List<CatalogItem> items) {
+        this.title = title;
+        this.items = items;
     }
 
     public String getTitle() {
@@ -19,6 +33,14 @@ public class Catalog {
 
     public List<CatalogItem> getItems() {
         return items;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setItems(List<CatalogItem> items) {
+        this.items = items;
     }
 
     public void add(CatalogItem item) {

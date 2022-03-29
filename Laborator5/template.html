@@ -1,0 +1,20 @@
+<html>
+<head>
+    <title>Welcome!</title>
+</head>
+<body>
+<h1>Items in ${catalog.title}:</h1>
+<ul>
+    <#list items as item>
+    <li>
+        <ul>
+            <li><b>${item.id}</b></li>
+            <li>${item.location}</li>
+            <li>${item.title}</li>
+        </ul>
+    </li>
+    </#list>
+</ul>
+
+</body>
+</html>
