@@ -72,6 +72,10 @@ public class SticksAndStonesGameData {
         return true;
     }
 
+    private void addNewFreeNodes(List<Integer> xs, List<Integer> ys) {
+
+    }
+
     public void populateRandomSticks(int count) {
         List<Integer> freeNodeX = new LinkedList<>();
         List<Integer> freeNodeY = new LinkedList<>();
@@ -126,6 +130,8 @@ public class SticksAndStonesGameData {
                     }
                 }
             }
+
+            addNewFreeNodes(freeNodeX, freeNodeY);
             freeNodeX.remove(currentVertex);
             freeNodeY.remove(currentVertex);
             placed++;
