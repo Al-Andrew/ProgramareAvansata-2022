@@ -36,7 +36,6 @@ public abstract class Command {
 
     public Command withFile(String file) throws CommandException {
         throw new CommandException("This command does not take a file as parameter");
-
     }
 
     public abstract void run() throws IOException, TemplateException;
