@@ -32,7 +32,7 @@ public class Board {
         if(new_points != 0)
             System.out.println(player.getName() + ": " + word + " worth: " + new_points);
         else
-            System.out.println(player.getName() + "skipped a turn");
+            System.out.println(player.getName() + " skipped a turn");
     }
 
     @Override

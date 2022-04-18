@@ -5,6 +5,8 @@
     - [x] Simulate the game using a thread for each player.
     - [x] Pay attention to the synchronization of the threads when extracting tokens from the bag and when putting words on the board. 
 
+#### NOTE(Al-Andrew): got the dict from http://app.aspell.net/create?defaults=en_US and then cleaned it using the python script in this folder
+
 - [ ] Homework:
     - [x] Use the following number of tiles for each letter: 
      ```
@@ -20,10 +22,10 @@
     (8 points)- J, X
     (10 points)-Q, Z
     ```
-    - [ ] Create an implementation of a dictionary, using some collection of words. Use an appropriate collection to represent the dictionary. This collection should be large enough; you may use aspell to generate a text file containing English words, or anything similar: WordNet, dexonline, etc.
+    - [x] Create an implementation of a dictionary, using some collection of words. Use an appropriate collection to represent the dictionary. This collection should be large enough; you may use aspell to generate a text file containing English words, or anything similar: WordNet, dexonline, etc.
     - [x] Implement the scoring and determine who the winner is at the end of the game.
-    - [ ] Make sure that players wait their turns, using a wait-notify approach.
-    - [ ] Implement a timekeeper thread that runs concurrently with the player threads, as a daemon. This thread will display the running time of the game and it will stop the game if it exceeds a certain time limit. 
+    - [x] Make sure that players wait their turns, using a wait-notify approach.
+    - [x] Implement a timekeeper thread that runs concurrently with the player threads, as a daemon. This thread will display the running time of the game and it will stop the game if it exceeds a certain time limit. 
 
 - [ ] Bonus:
     - [ ] The dictionay must offer the possibility to search not only for a word, but for words which start with a given prefix (lookup).
