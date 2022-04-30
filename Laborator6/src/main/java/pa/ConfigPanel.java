@@ -27,7 +27,7 @@ public class ConfigPanel extends JPanel {
         rowsSpinner = new JSpinner(rowsSpinnerModel);
         colsSpinnerModel = new SpinnerNumberModel(10, 2, 30, 1);
         colsSpinner = new JSpinner(colsSpinnerModel);
-        sticksSpinnerModel = new SpinnerNumberModel(30, 2, 100, 1);
+        sticksSpinnerModel = new SpinnerNumberModel(30, 10, 100, 5);
         sticksSpinner = new JSpinner(sticksSpinnerModel);
         createButton = new JButton("Create");
 
@@ -52,14 +52,18 @@ public class ConfigPanel extends JPanel {
         return sticksSpinnerModel.getNumber().intValue();
     }
 
-    private void createGame(java.awt.event.ActionEvent e) {
-        frame.gameData = new SticksAndStonesGameData(getRows(), getCols());
+    public void resetGame(SticksAndStonesGameData gd) {
+        frame.gameData = gd;
         frame.gameData.populateRandomSticks(getSticks());
-        System.out.println(frame.gameData.getSticks());
+        //System.out.println(frame.gameData.getSticks());
         frame.drawingPanel.init();
         frame.drawingPanel.updateUI();
         frame.drawingPanel.paintComponent(getGraphics());
-        frame.setSize(new Dimension(frame.drawingPanel.canvasWidth, frame.drawingPanel.canvasHeight + 100));
+        frame.setSize(500, 600);
+    }
+
+    private void createGame(java.awt.event.ActionEvent e) {
+        resetGame(new SticksAndStonesGameData(getRows(), getCols(), frame));
         this.updateUI();
         //TODO(Al-Andrew): pop-up for loss of game data
     }

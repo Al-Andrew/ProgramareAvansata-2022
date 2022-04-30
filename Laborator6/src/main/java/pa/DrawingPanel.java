@@ -71,12 +71,18 @@ public class DrawingPanel extends JPanel {
 
         if(frame.gameData == null)
             return;
-
+        //Sticks
         for(var stick : frame.gameData.getSticks()) {
             g.setColor(Color.black);
             Stroke stickStroke = new BasicStroke(3.0f);
             g.setStroke(stickStroke);
-            g.drawLine(padX + stick.startX, padY + stick.startY, padX + stick.endX, padY + stick.endY);
+            g.drawLine(padX + stick.startX * cellWidth, padY + stick.startY * cellHeight, padX + stick.endX * cellWidth, padY + stick.endY * cellHeight);
+        }
+        //Stones
+        for(var stone : frame.gameData.getStones()) {
+            g.setColor(stone.color == StoneColor.BLUE?Color.blue : Color.red);
+            g.fillOval(stone.x * cellWidth + padX - 10, stone.y * cellHeight + padY - 10,
+                    stoneSize, stoneSize);
         }
 
     }

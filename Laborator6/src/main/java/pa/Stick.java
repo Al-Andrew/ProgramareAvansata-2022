@@ -1,10 +1,15 @@
 package pa;
 
-public class Stick {
-    int endX, endY;
-    int startX, startY;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-    public Stick(int startX, int startY, int endX, int endY) {
+public class Stick {
+    public int endX, endY;
+    public int startX, startY;
+
+    @JsonCreator
+    public Stick(@JsonProperty("startX") int startX, @JsonProperty("startY") int startY,
+                 @JsonProperty("endX") int endX, @JsonProperty("endY") int endY) {
         this.startX = startX;
         this.startY = startY;
         this.endX = endX;
@@ -22,6 +27,6 @@ public class Stick {
     @Override
     public String toString() {
         return "(" + startX + ", " + startY + ") -> " +
-                "(" + endX + ", " + startY + ")" ;
+                "(" + endX + ", " + endY + ")" ;
     }
 }
