@@ -70,8 +70,8 @@ public class ImagePanel extends JPanel {
             g2d.drawString(pair.to.getName(), point2.x + mapOffX, point2.y + mapOffY + 30);
         }
 
-        Point pnt = Util.boundingBoxScale(Util.SphericalMercatorProject(0, 0), image.getWidth(), image.getHeight());
-        g2d.fillOval(pnt.x + mapOffX - 5, pnt.y + mapOffY - 5, 10, 10);
+        //Point pnt = Util.boundingBoxScale(Util.SphericalMercatorProject(0, 0), image.getWidth(), image.getHeight());
+        //g2d.fillOval(pnt.x + mapOffX - 5, pnt.y + mapOffY - 5, 10, 10);
 
         g2d.dispose();
     }
