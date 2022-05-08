@@ -11,5 +11,5 @@ create TABLE continents (id NUMBER PRIMARY KEY, name VARCHAR2(64) UNIQUE);
 create or replace trigger continents_insert before insert on continents for each row begin select continent_ids_seq.nextval into :new.id from dual; end;;
 create TABLE countries ( id NUMBER PRIMARY KEY, name VARCHAR2(64) UNIQUE, code VARCHAR2(3) UNIQUE, continent_id NUMBER, CONSTRAINT fk_countries_continents FOREIGN KEY(continent_id) REFERENCES continents(id));
 create or replace trigger countries_insert before insert on countries for each row begin select country_ids_seq.nextval into :new.id from dual; end;;
-create TABLE cities ( id NUMBER PRIMARY KEY, name VARCHAR2(64), is_capital CHAR(1) NOT NULL CHECK (is_capital IN ( 'Y', 'N' )), latitude NUMBER, longitude NUMBER, country_id NUMBER, CONSTRAINT fk_cities FOREIGN KEY(country_id) REFERENCES countries(id));
+create TABLE cities ( id NUMBER PRIMARY KEY, name VARCHAR2(64), is_capital NUMBER(1) NOT NULL CHECK (is_capital IN ( 'Y', 'N' )), latitude NUMBER, longitude NUMBER, country_id NUMBER, CONSTRAINT fk_cities FOREIGN KEY(country_id) REFERENCES countries(id));
 create or replace trigger cities_insert before insert on cities for each row begin select city_ids_seq.nextval into :new.id from dual; end;;

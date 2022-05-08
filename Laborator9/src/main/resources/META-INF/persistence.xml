@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
+             version="2.2">
+    <persistence-unit name="LAB9">
+
+        <class>entity.Continent</class>
+        <class>entity.Country</class>
+        <class>entity.City</class>
+        <properties>
+            <property name="hibernate.connection.url" value="jdbc:oracle:thin:@localhost:1521:XE"/>
+            <property name="hibernate.connection.driver_class" value="oracle.jdbc.OracleDriver"/>
+            <property name="hibernate.connection.username" value="STUDENT_PA"/>
+            <property name="hibernate.connection.password" value="STUDENT_PA"/>
+            <!--<property name="hibernate.show_sql" value="true"/> -->
+        </properties>
+    </persistence-unit>
+</persistence>

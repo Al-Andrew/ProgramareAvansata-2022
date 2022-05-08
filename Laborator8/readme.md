@@ -14,12 +14,12 @@
     - [x] Create DAO classes that offer methods for creating countries and continents, and finding them by their ids and names;
     - [x] Implement a simple test using your classes. 
 
-- [ ] Homework (2p)
+- [x] Homework (2p)
     - [x] Create the necessary table in order to store cities in your database. A city may contain: id, country, name, capital(0/1), latitude, longitude
     - [x] Create an object-oriented model of the data managed by the application.
     - [x] Create a tool to import data from a real dataset: World capitals gps or other.
-    - [ ] Display the distances between various cities in the world.
-    - [ ] (+1p) Create a 2D map (using Swing or JavaFX) and draw on it the cities at their corresponding locations. 
+    - [x] Display the distances between various cities in the world.
+    - [x] (+1p) Create a 2D map (using Swing or JavaFX) and draw on it the cities at their corresponding locations. 
 
 - [ ] Bonus (2p+)
     - [ ] Use a connection pool in order to manage database connections, such as C3PO, HikariCP or Apache Commons DBCP.
