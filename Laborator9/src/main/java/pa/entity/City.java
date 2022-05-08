@@ -61,6 +61,16 @@ public class City {
         this.population = null;
     }
 
+    public City(long id, String name, Long isCapital, Float latitude, Float longitude, Country country, Long population) {
+        this.id = id;
+        this.name = name;
+        this.isCapital = isCapital;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.country = country;
+        this.population = population;
+    }
+
     public Long getId() {
         return id;
     }
@@ -121,7 +131,7 @@ public class City {
                 ", isCapital=" + isCapital +
                 ", latitude=" + latitude +
                 ", longitude=" + longitude +
-                ", country=" + country.getName() +
+                ", country=" + ((country!= null)?country.getName():"null") +
                 '}';
     }
 

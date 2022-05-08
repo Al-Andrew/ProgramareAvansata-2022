@@ -1,15 +1,10 @@
 package pa.graphics;
 
-import org.chocosolver.solver.Model;
-import org.chocosolver.solver.variables.IntVar;
 import pa.entity.City;
 import pa.repository.JPACityRepository;
-import pa.repository.Repository;
 
 import javax.swing.*;
 import java.awt.*;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.List;
 
 public class InteractionPanel extends JPanel {
@@ -17,7 +12,7 @@ public class InteractionPanel extends JPanel {
     JLabel labelSelectCity = new JLabel("City Name:");
     JButton highlightButton = new JButton("Highlight");
 
-    JButton solveButton = new JButton("Solve constraints");
+    JButton clearButton = new JButton("Clear");
 
     private final HighlightData highlightData;
     private final ImagePanel imagePanel;
@@ -28,12 +23,12 @@ public class InteractionPanel extends JPanel {
         setPreferredSize(new Dimension(300, 800));
         selectCity.setPreferredSize(new Dimension(250, 40));
         highlightButton.addActionListener(this::highlightButtonAction);
-        solveButton.addActionListener(this::solveConstraintsAction);
+        clearButton.addActionListener(this::clearButtonAction);
 
         add(labelSelectCity);
         add(selectCity);
         add(highlightButton);
-        add(solveButton);
+        add(clearButton);
     }
 
     private void highlightButtonAction(java.awt.event.ActionEvent e) {
@@ -55,20 +50,9 @@ public class InteractionPanel extends JPanel {
         imagePanel.updateUI();
     }
 
-    private void solveConstraintsAction(java.awt.event.ActionEvent e) {
-
-        updateUI();
-        imagePanel.updateUI();
-    }
-
 
     private void clearButtonAction(java.awt.event.ActionEvent e) {
-        //for (var lbl : resultLabels) {
-        //    labelHolder.remove(lbl);
-        //}
-        //labelHolder.updateUI();
-        //resultLabels.clear();
-        //remove(clearButton);
+        highlightData.clear();
         updateUI();
         imagePanel.updateUI();
     }

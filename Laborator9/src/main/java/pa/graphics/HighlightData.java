@@ -26,4 +26,8 @@ public class HighlightData {
         this.selected = selected;
     }
 
+    public void clear() {
+        this.cityList.clear();
+        selected = null;
+    }
 }

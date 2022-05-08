@@ -10,10 +10,7 @@ import pa.entity.City;
 import pa.entity.Continent;
 import pa.entity.Country;
 import pa.graphics.MainFrame;
-import pa.repository.JPACityRepository;
-import pa.repository.JPAContinentRepository;
-import pa.repository.JPACountryRepository;
-import pa.repository.Repository;
+import pa.repository.*;
 
 import javax.persistence.EntityManager;
 import java.io.*;
@@ -29,8 +26,8 @@ public class Main {
 
         //exe.compulsory();
         //exe.timedCityPopulate();
-        //exe.homework();
-        exe.gui();
+        exe.homework();
+        //exe.gui();
     }
 
     public void compulsory() {
@@ -107,9 +104,7 @@ public class Main {
     }
 
     public void homework() {
-        Repository<Continent> repo = new JPAContinentRepository();
-        Continent c = repo.findByName("Futhark");
-        repo.delete(c);
+        Repository repo = Repository.make(City.class, RepoType.JPA);
         System.out.println(repo.getAll());
     }
 

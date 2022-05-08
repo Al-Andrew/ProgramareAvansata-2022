@@ -1,7 +1,7 @@
 # Laboratorul 9
 
 # TODO:
-- [ ] Compulsory (1p)
+- [x] Compulsory (1p)
     - [x] Create a persistence unit (use EclipseLink or Hibernate or other JPA implementation).
     - [x] Verify the presence of the persistence.xml file in your project. Make sure that the driver for EclipseLink or Hibernate was added to to your project classpath (or add it yourself).
     - [x] Define the entity classes for your model (at least one) and put them in a dedicated package. You may use the IDE support in order to generate entity classes from database tables.
@@ -20,6 +20,6 @@
     - [ ] (+1p) Assume each city has a new property, its population. Use a constraint solver, such as Choco solver, OptaPlanner or ORTools, in order to find a set of cities having names that start with the same letter, the total sum of their population is between two given bounds and they are from different countries.
 - [ ] Bonus (2p)
     - [ ] Implement properly the many-to-many sisterhood relationship.
-    - [ ] Implement both the JDBC and JPA implementations and use an AbstractFactory in order to create the DAO objects (the repositories).
+    - [x] Implement both the JDBC and JPA implementations and use an AbstractFactory in order to create the DAO objects (the repositories).
     - [ ] The application will use JDBC or JPA depending on a parameter given in an initialization file.
     - [ ] You may also use an IoC container in order to inject the DAO implementations.
