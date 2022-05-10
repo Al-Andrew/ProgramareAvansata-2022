@@ -15,7 +15,7 @@ public class ImagePanel extends JPanel {
 
     public ImagePanel(HighlightData highlightData) {
         this.highlightData = highlightData;
-        image = new BufferedImage(1440, 1080, BufferedImage.TYPE_INT_ARGB);
+        image = new BufferedImage(900, 900, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = image.createGraphics();
         g.setColor(Color.BLACK);
         java.util.List<Border> borders = Border.readFromJSON("borders.json");

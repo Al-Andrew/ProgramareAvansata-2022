@@ -26,8 +26,8 @@ public class Main {
 
         //exe.compulsory();
         //exe.timedCityPopulate();
-        exe.homework();
-        //exe.gui();
+        //exe.homework();
+        exe.gui();
     }
 
     public void compulsory() {
