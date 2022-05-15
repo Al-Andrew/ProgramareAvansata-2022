@@ -14,17 +14,17 @@ import java.util.Set;
 public class SocialNetworkVisualizer {
 
     static public void exportSVG(SocialNetwork network, String file) throws IOException {
-        SVGGraphics2D g2 = new SVGGraphics2D(600, 600);
+        SVGGraphics2D g2 = new SVGGraphics2D(1000, 1000);
 
         Set<String> userNames = network.getUsers();
         Map<String, Point2D> nodes = new HashMap<>();
 
         float angularDistance = (float) (2*Math.PI / userNames.size());
         float currentAngle = 0f;
-        float arrangementRadius = 200;
-        float nodeRadius = 20;
+        float arrangementRadius = 400;
+        float nodeRadius = 35;
 
-        g2.translate(300, 300);
+        g2.translate(450, 450);
 
         for(var user : userNames) {
             Point2D constructed;
@@ -50,13 +50,14 @@ public class SocialNetworkVisualizer {
             g2.setColor(Color.RED);
             g2.fillOval(x, y, (int) nodeRadius, (int) nodeRadius);
             g2.setColor(Color.BLACK);
-            g2.drawString(entry.getKey(), x, y);
+            g2.drawString(entry.getKey(), x * 1.1f, y * 1.1f + 20);
         }
 
         Writer writer = new FileWriter(file);
         String doc = g2.getSVGDocument();
         writer.write(doc);
         writer.flush();
+        writer.close();
         g2.dispose();
     }
 }
