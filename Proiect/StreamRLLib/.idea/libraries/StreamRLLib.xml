@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="StreamRLLib">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/out/artifacts/StreamRLLib_jar/StreamRLLib.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
