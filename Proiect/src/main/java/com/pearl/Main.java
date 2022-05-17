@@ -1,30 +1,27 @@
 package com.pearl;
 
-import static com.raylib.Jaylib.RAYWHITE;
-import static com.raylib.Jaylib.VIOLET;
+import com.pearl.graphics.Renderer;
+import com.pearl.records.GameData;
+import com.raylib.Jaylib;
+
 import static com.raylib.Raylib.*;
 
 public class Main {
     public static void main(String[] args) {
-        InitWindow(800, 450, "Demo");
+        GameData data = new GameData();
+        Renderer renderer = new Renderer(data);
+
+        InitWindow(data.WINDOW_WIDTH, data.WINDOW_HEIGHT, data.WINDOW_TITLE);
         SetTargetFPS(60);
-        Camera3D camera = new Camera3D()
-                ._position(new Vector3().x(18).y(16).z(18))
-                .target(new Vector3())
-                .up(new Vector3().x(0).y(1).z(0))
-                .fovy(45).projection(CAMERA_PERSPECTIVE);
-        SetCameraMode(camera, CAMERA_ORBITAL);
 
         while (!WindowShouldClose()) {
-            UpdateCamera(camera);
-            BeginDrawing();
-            ClearBackground(RAYWHITE);
-            BeginMode3D(camera);
-            DrawGrid(20, 1.0f);
-            EndMode3D();
-            DrawText("Hello world", 190, 200, 20, VIOLET);
-            DrawFPS(20, 20);
-            EndDrawing();
+            Vector2 delta = new Jaylib.Vector2();
+            delta.x(IsKeyPressed(KEY_D)?1:0 - (IsKeyPressed(KEY_A)?1:0))
+                    .y(IsKeyPressed(KEY_S)?1:0 - (IsKeyPressed(KEY_W)?1:0));
+
+            data.player.tilePosition = Jaylib.Vector2Add(data.player.tilePosition, delta);
+
+            renderer.drawAll();
         }
         CloseWindow();
     }

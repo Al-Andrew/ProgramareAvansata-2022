@@ -13,7 +13,6 @@ public class Server {
     private ServerSocket serverSocket = null;
     private SocialNetwork sn = new SocialNetwork();
 
-
     public Server(int port, int timeout) throws IOException {
         this.port = port;
         this.timeout = timeout;
