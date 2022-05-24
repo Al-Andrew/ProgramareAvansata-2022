@@ -1,5 +1,7 @@
 package pa;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.*;
 
 
@@ -22,7 +24,7 @@ public class SocialNetwork {
             return friend1.equals(user) || friend2.equals(user);
         }
 
-        public String getOtherFriend(String user) {
+        public String getOtherFriend(@NotNull String user) {
             if(user.equals(friend1))
                 return friend2;
             else if (user.equals(friend2))

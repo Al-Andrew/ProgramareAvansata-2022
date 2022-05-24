@@ -4,61 +4,61 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.net.SocketImpl;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/persons")
 public class PersonController {
-    private List<Person> persons = new ArrayList<>();
 
     public PersonController() {
-        persons.add(new Person(UUID.randomUUID(), "Elon Tusk"));
-        persons.add(new Person(UUID.randomUUID(), "Ratt Damon"));
+        SocialNetwork.the().addUser(new Person(UUID.fromString("82e62ee6-4f2e-4483-935b-bb1140b976cf"), "Elon Tusk"));
+        SocialNetwork.the().addUser(new Person(UUID.fromString("c69fd4f7-11dc-40c3-99fe-5db09db899a1"), "Ratt Damon"));
+        SocialNetwork.the().addUser(new Person(UUID.fromString("de4029c6-9ab6-4a88-a2bc-dcf6c2501f7f"), "Disney Walterson"));
     }
 
     @GetMapping("/all")
     public List<Person> getAll() {
-        return persons;
+        return SocialNetwork.the().getAllUsers();
     }
     @GetMapping("/count")
     public int count() {
-        return persons.size();
+        return SocialNetwork.the().getUsersCount();
     }
     @GetMapping("/get")
     public Person getPerson(@RequestParam String id) {
-        return persons.stream()
-                .filter(p -> p.getId().equals(UUID.fromString(id))).findFirst().orElse(null);
+        return SocialNetwork.the().getUserById(UUID.fromString(id));
+    }
+    @GetMapping("/popular")
+    public List<Person> getPopular(@RequestParam Integer n) {
+        Vector<Person> ppl;
+        ppl = SocialNetwork.the().getAllUsers().stream().collect(Collectors.toCollection(Vector::new));
+        ppl.sort(Comparator.comparingInt((Person p) -> SocialNetwork.the().getFriendshipsForUser(p.id).size()));
+
+        return ppl.subList(0, n);
     }
     @PostMapping("/create")
     public UUID createPerson(@RequestParam String name) {
         UUID id = UUID.randomUUID();
-        persons.add(new Person(id, name));
+        SocialNetwork.the().addUser(new Person(id, name));
         return id;
     }
     @PutMapping("/update")
     public ResponseEntity<String> updatePerson(
             @RequestParam String id, @RequestParam String name) {
-        Person product = getPerson(id);
-        if (product == null) {
-            return new ResponseEntity<>(
-                    "Person not found", HttpStatus.NOT_FOUND); //or GONE
-        }
-        product.setName(name);
-        return new ResponseEntity<>(
-                "Person updated successfully", HttpStatus.OK);
+        return SocialNetwork.the().updateUser(UUID.fromString(id), new Person(UUID.fromString(id), name))?
+                new ResponseEntity<>(
+                        "Person updated successfully", HttpStatus.OK):
+                new ResponseEntity<>(
+                        "Person does not exist", HttpStatus.NOT_FOUND);
     }
 
     @DeleteMapping("/delete")
     public ResponseEntity<String> deletePerson(@RequestParam String id) {
-        Person product = getPerson(id);
-        if (product == null) {
-            return new ResponseEntity<>(
-                    "Product not found", HttpStatus.GONE);
-        }
-        persons.remove(product);
-        return new ResponseEntity<>("Person removed", HttpStatus.OK);
+        return SocialNetwork.the().deleteUser(UUID.fromString(id))?
+                new ResponseEntity<>("Person deleted", HttpStatus.OK):
+                new ResponseEntity<>("Person does not exist", HttpStatus.NOT_FOUND);
     }
 
 }
