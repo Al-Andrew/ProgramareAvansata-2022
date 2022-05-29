@@ -2,27 +2,25 @@ package com.pearl;
 
 import com.pearl.graphics.Renderer;
 import com.pearl.records.GameData;
-import com.raylib.Jaylib;
+import com.pearl.update.UpdateController;
 
-import static com.raylib.Raylib.*;
+import java.io.IOException;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException, IOException {
         GameData data = new GameData();
         Renderer renderer = new Renderer(data);
+        UpdateController update = new UpdateController(data);
 
-        InitWindow(data.WINDOW_WIDTH, data.WINDOW_HEIGHT, data.WINDOW_TITLE);
-        SetTargetFPS(60);
+        //var tp = TexturePack.defaultEmpty();
+        //tp.saveToFile("assets/test.json");
 
-        while (!WindowShouldClose()) {
-            Vector2 delta = new Jaylib.Vector2();
-            delta.x(IsKeyPressed(KEY_D)?1:0 - (IsKeyPressed(KEY_A)?1:0))
-                    .y(IsKeyPressed(KEY_S)?1:0 - (IsKeyPressed(KEY_W)?1:0));
+        Thread updateThread = new Thread(update);
+        updateThread.start();
 
-            data.player.tilePosition = Jaylib.Vector2Add(data.player.tilePosition, delta);
+        renderer.run();
+        renderer.close();
+        updateThread.join();
 
-            renderer.drawAll();
-        }
-        CloseWindow();
     }
 }
