@@ -1,13 +1,15 @@
 package com.pearl.update.brains;
 
+import com.pearl.records.EntityData;
 import com.pearl.records.GameData;
 
 public abstract class Brain {
-    private GameData gameData;
-
-    Brain(GameData gameData) { this.gameData = gameData; }
+    EntityData body;
 
 
-    //NOTE(Al-Anrew): the actioned is the brain that acted
-    abstract void actRound(Brain actioned);
+    public Brain(EntityData body) {
+        this.body = body;
+    }
+
+    public abstract void takeTurn(GameData data);
 }

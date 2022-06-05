@@ -11,7 +11,10 @@
   },
   "entityPaths" : {
     "GOBLIN" : "assets/textures/goblin.png",
-    "PLAYER" : "assets/textures/player.png"
+    "PLAYER" : "assets/textures/player.png",
+    "DOOR" : "",
+    "UP_STAIR" : "",
+    "DOWN_STAIR" : ""
   },
   "bgColor" : {
     "r" : 120,

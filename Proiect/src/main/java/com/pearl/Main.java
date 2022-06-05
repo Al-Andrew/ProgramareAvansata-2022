@@ -12,9 +12,6 @@ public class Main {
         Renderer renderer = new Renderer(data);
         UpdateController update = new UpdateController(data);
 
-        //var tp = TexturePack.defaultEmpty();
-        //tp.saveToFile("assets/test.json");
-
         Thread updateThread = new Thread(update);
         updateThread.start();
 
