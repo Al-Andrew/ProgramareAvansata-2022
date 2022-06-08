@@ -1,5 +1,7 @@
 package com.pearl.update;
 
+import com.raylib.Raylib;
+
 import static com.raylib.Raylib.IsKeyPressed;
 
 public class InputCollector {
@@ -13,5 +15,6 @@ public class InputCollector {
             if (value)
                 storage.inputChanged = true;
         }
+        storage.mouseWheelDelta = Raylib.GetMouseWheelMove();
     }
 }

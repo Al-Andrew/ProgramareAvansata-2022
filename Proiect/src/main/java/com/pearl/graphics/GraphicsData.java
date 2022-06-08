@@ -7,7 +7,7 @@ import com.raylib.Raylib;
 import static com.raylib.Raylib.LoadShader;
 
 public class GraphicsData {
-    private GameData data;
+    private final GameData data;
     public boolean initialized = false;
     public Raylib.Camera2D cam;
     public Raylib.Shader grayscale;

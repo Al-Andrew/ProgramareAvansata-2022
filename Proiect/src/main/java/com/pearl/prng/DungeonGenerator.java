@@ -36,6 +36,16 @@ public class DungeonGenerator implements TerrainGenerator {
                 return new Jaylib.Vector2(this.x + this.w/2 , this.y + this.h/2);
             }
 
+            public Raylib.Vector2 getRandomCorner() {
+                int roll = prng.nextInt(0, 3);
+                return switch (roll) {
+                    case 1 -> new Jaylib.Vector2(this.x + 1, this.y + this.h - 2);
+                    case 2 -> new Jaylib.Vector2(this.x + this.w - 2, this.y + 1);
+                    case 3 -> new Jaylib.Vector2(this.x + this.w - 2, this.y + this.h - 2);
+                    default -> new Jaylib.Vector2(this.x + 1, this.y + 1);
+                };
+            }
+
             public void updateEmptySpaceBitmap(boolean[][] target) {
                 for (int i = y + 1; i < y + h - 1; ++i) {
                     for (int j = x + 1; j < x + w - 1; ++j) {
@@ -127,6 +137,8 @@ public class DungeonGenerator implements TerrainGenerator {
         }
         if(depth != GameData.LEVEL_COUNT - 1)
             entityList.add(EntityData.withPosition((int) lastRoom.getCenter().x(), (int) lastRoom.getCenter().y(), Entity.UP_STAIR));
+        else
+            entityList.add(EntityData.withPosition((int) lastRoom.getCenter().x(), (int) lastRoom.getCenter().y(), Entity.AMULET));
 
         rooms.stream()
                 .skip(1)
@@ -140,18 +152,38 @@ public class DungeonGenerator implements TerrainGenerator {
                     // 15% - 2 goblins
                     // 5% - 3 goblins
                     int tableRoll = prng.nextInt(0, 100);
-                    if(MathUtil.betweenInclusive(tableRoll, 0, 19)) {
-                        return;
-                    } else if (MathUtil.betweenInclusive(tableRoll, 20, 79)) {
-                        entityList.add(EntityData.withPosition((int) r.getCenter().x(), (int) r.getCenter().y(), Entity.GOBLIN));
+                    if (MathUtil.betweenInclusive(tableRoll, 20, 79)) {
+                        entityList.add(EntityData.withPosition((int) r.getCenter().x(), (int) r.getCenter().y(), Entity.RAT));
                     } else if (MathUtil.betweenInclusive(tableRoll, 80, 94)) {
-                        entityList.add(EntityData.withPosition((int) r.getCenter().x(), (int) r.getCenter().y() + 2, Entity.GOBLIN));
-                        entityList.add(EntityData.withPosition((int) r.getCenter().x(), (int) r.getCenter().y() - 2, Entity.GOBLIN));
+                        entityList.add(EntityData.withPosition((int) r.getCenter().x(), (int) r.getCenter().y() + 2, Entity.RAT));
+                        entityList.add(EntityData.withPosition((int) r.getCenter().x(), (int) r.getCenter().y() - 2, Entity.RAT));
                     } else if (MathUtil.betweenInclusive(tableRoll, 95, 99)) {
-                        entityList.add(EntityData.withPosition((int) r.getCenter().x() + 2, (int) r.getCenter().y() + 2, Entity.GOBLIN));
-                        entityList.add(EntityData.withPosition((int) r.getCenter().x(), (int) r.getCenter().y(), Entity.GOBLIN));
-                        entityList.add(EntityData.withPosition((int) r.getCenter().x() - 2, (int) r.getCenter().y() - 2, Entity.GOBLIN));
+                        entityList.add(EntityData.withPosition((int) r.getCenter().x() + 2, (int) r.getCenter().y() + 2, Entity.RAT));
+                        entityList.add(EntityData.withPosition((int) r.getCenter().x(), (int) r.getCenter().y(), Entity.RAT));
+                        entityList.add(EntityData.withPosition((int) r.getCenter().x() - 2, (int) r.getCenter().y() - 2, Entity.RAT));
                     }
+                    //Roll again. this time for treasure 25% chance of having treasure in a room
+                    tableRoll = prng.nextInt(0, 100);
+                    if(MathUtil.betweenInclusive(tableRoll, 0, 24)) {
+                        //Now roll for what treasure. random and equally split
+                        tableRoll = prng.nextInt(0, 4);
+                        Raylib.Vector2 pos = r.getRandomCorner();
+                        switch (tableRoll) {
+                            case 0 -> {
+                                entityList.add(EntityData.withPosition((int) pos.x(), (int) pos.y(), Entity.HEALTH_UP));
+                            }
+                            case 1 -> {
+                                entityList.add(EntityData.withPosition((int) pos.x(), (int) pos.y(), Entity.FULL_HEALTH));
+                            }
+                            case 2 -> {
+                                entityList.add(EntityData.withPosition((int) pos.x(), (int) pos.y(), Entity.STRENGTH_UP));
+                            }
+                            case 3 -> {
+                                entityList.add(EntityData.withPosition((int) pos.x(), (int) pos.y(), Entity.DEFENCE_UP));
+                            }
+                        }
+                    }
+
                 });
 
     }

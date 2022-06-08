@@ -6,6 +6,7 @@ import java.util.Map;
 
 public class InputData {
     public Map<LogicalKeyboardKey, Boolean> keyJustPressedMap = new HashMap<>();
+    public float mouseWheelDelta;
     public boolean inputChanged = false;
 
     public boolean isKeyJustPressed(LogicalKeyboardKey key) {

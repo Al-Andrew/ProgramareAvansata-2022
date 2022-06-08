@@ -31,9 +31,26 @@ public class TexturePack {
     private Raylib.Color bgColor;
     @JsonDeserialize(using = ColorDeserializer.class)
     @JsonSerialize(using = ColorSerializer.class)
-    @JsonProperty("textColor")
-    private Raylib.Color txColor;
+    @JsonProperty("textColorNormal")
+    private Raylib.Color txColorNormal;
+    @JsonDeserialize(using = ColorDeserializer.class)
+    @JsonSerialize(using = ColorSerializer.class)
+    @JsonProperty("textColorBad")
+    private Raylib.Color txColorBad;
+    @JsonDeserialize(using = ColorDeserializer.class)
+    @JsonSerialize(using = ColorSerializer.class)
+    @JsonProperty("textColorGood")
+    private Raylib.Color txColorGood;
+    @JsonDeserialize(using = ColorDeserializer.class)
+    @JsonSerialize(using = ColorSerializer.class)
+    @JsonProperty("uiColorBackground")
+    private Raylib.Color uiColorBackground;
+    @JsonDeserialize(using = ColorDeserializer.class)
+    @JsonSerialize(using = ColorSerializer.class)
+    @JsonProperty("uiColorBorder")
+    private Raylib.Color uiColorBorder;
 
+    @JsonIgnore
     private final Raylib.Vector2 tileSize = new Jaylib.Vector2(24, 24);
 
     public void loadTextures() {
@@ -82,7 +99,11 @@ public class TexturePack {
             ret.entityPaths.put(entt, "assets/textures/");
         }
         ret.bgColor = new Raylib.Color().r((byte) 120).g((byte) 120).b((byte) 120).a((byte) 255);
-        ret.txColor = new Raylib.Color().r((byte) 240).g((byte) 240).b((byte) 240).a((byte) 255);
+        ret.txColorNormal = new Raylib.Color().r((byte) 240).g((byte) 240).b((byte) 240).a((byte) 255);
+        ret.txColorGood = Jaylib.GREEN;
+        ret.txColorBad = Jaylib.RED;
+        ret.uiColorBackground = new Raylib.Color().r((byte) 25).g((byte) 75).b((byte) 115).a((byte) 255);
+        ret.uiColorBorder = new Raylib.Color().r((byte) 55).g((byte) 175).b((byte) 150).a((byte) 255);
 
         return ret;
     }
@@ -102,7 +123,11 @@ public class TexturePack {
                 ", entityPaths=" + entityPaths +
                 ", entities=" + entities +
                 ", bgColor=" + bgColor +
-                ", txColor=" + txColor +
+                ", txColorNormal=" + txColorNormal +
+                ", txColorBad=" + txColorBad +
+                ", txColorGood=" + txColorGood +
+                ", uiColorBackground=" + uiColorBackground +
+                ", uiColorBorder=" + uiColorBorder +
                 '}';
     }
 
@@ -126,7 +151,27 @@ public class TexturePack {
         return bgColor;
     }
 
-    public Raylib.Color getTxColor() {
-        return txColor;
+    public Raylib.Color getTxColorNormal() {
+        return txColorNormal;
+    }
+
+    public Raylib.Color getTxColorBad() {
+        return txColorBad;
+    }
+
+    public Raylib.Color getTxColorGood() {
+        return txColorGood;
+    }
+
+    public Raylib.Color getUiColorBackground() {
+        return uiColorBackground;
+    }
+
+    public Raylib.Color getUiColorBorder() {
+        return uiColorBorder;
+    }
+
+    public Raylib.Vector2 getTileSize() {
+        return tileSize;
     }
 }

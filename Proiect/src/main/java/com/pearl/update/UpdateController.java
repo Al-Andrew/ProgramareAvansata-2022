@@ -58,7 +58,7 @@ public class UpdateController implements Runnable {
 
     private void updateCameraSmooth() {
         float minSpeed = 30;
-        float minEffectLength = 10;
+        float minEffectLength = 6;
         float fractionSpeed = 0.8f;
 
         data.graphicsData.cam.offset( new Jaylib.Vector2(GameData.GAME_WIDTH/2.0f,
@@ -73,5 +73,8 @@ public class UpdateController implements Runnable {
             data.graphicsData.cam.target(Raylib.Vector2Add(data.graphicsData.cam.target(),
                     Raylib.Vector2Scale(diff, (speed*GameData.frameTimeMillis/1000)/length)));
         }
+        float newZoom = data.graphicsData.cam.zoom() + data.inputData.mouseWheelDelta;
+        newZoom = Math.max(Math.abs(newZoom), 0.5f);
+        data.graphicsData.cam.zoom(newZoom);
     }
 }

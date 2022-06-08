@@ -10,14 +10,15 @@ public class EntityData {
     public Entity type;
     public Raylib.Vector2 tilePosition;
     public Brain brain;
-    private StatSheet stats;
-
+    public StatSheet stats;
+    public Inventory inv;
 
 
     private EntityData(Entity type, int tileX, int tileY) {
         this.type = type;
         this.tilePosition = new Jaylib.Vector2(tileX, tileY);
         this.stats = type.getBaseStats();
+        this.inv = new Inventory();
     }
 
     public static EntityData withPosition(int x, int y, Entity type) {
@@ -33,7 +34,15 @@ public class EntityData {
     }
 
     public StatSheet getStatsAfterItems() {
-        return this.stats;
+        StatSheet ret = new StatSheet(this.stats);
+        ret.maxHealth += inv.health * 3;
+        ret.strength += inv.strength * 2;
+        ret.defence += inv.defence;
+        return ret;
+    }
+
+    public String getAttackPhrase() {
+        return this.type.attackPhrase;
     }
 
     public int getTileX(){

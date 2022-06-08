@@ -7,7 +7,7 @@ import com.raylib.Raylib;
 public interface BrainAttacking {
 
     default boolean attack(Raylib.Vector2 target, GameData data, EntityData body) {
-        EntityData targetEntity = data.levelMaps[data.currentLevel].entityList
+        EntityData targetEntity = data.levelMaps[GameData.currentLevel].entityList
                 .stream()
                 .filter((entityData -> entityData.tilePosition.x() == target.x() &&
                         entityData.tilePosition.y() == target.y()))

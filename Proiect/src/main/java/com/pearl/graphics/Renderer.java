@@ -80,17 +80,83 @@ public class Renderer {
         }
     }
 
+    private void drawUi() {
+        final int borderSpacing = 5;
+        final int borderWidth = 2;
+        int logWidth  = 500;
+        int logBaseOffX = GameData.GAME_WIDTH - logWidth;
+        //Log back-panel
+        Raylib.DrawRectangle(logBaseOffX, GameData.GAME_HEIGHT,
+                logWidth, GameData.LOG_HEIGHT, data.texturePack.getUiColorBackground());
+        //Log border
+        Raylib.DrawRectangle(logBaseOffX + borderSpacing, GameData.GAME_HEIGHT + borderSpacing,
+                borderWidth, GameData.LOG_HEIGHT, data.texturePack.getUiColorBorder());
+        Raylib.DrawRectangle( logBaseOffX + logWidth - borderSpacing - borderWidth, GameData.GAME_HEIGHT + borderSpacing,
+                borderWidth, GameData.LOG_HEIGHT, data.texturePack.getUiColorBorder());
+        Raylib.DrawRectangle(logBaseOffX + borderSpacing, GameData.GAME_HEIGHT + borderSpacing,
+                logWidth - 2 * borderSpacing - borderWidth, borderWidth, data.texturePack.getUiColorBorder());
+
+        int logOffsetX = logBaseOffX + borderSpacing * 3 + borderWidth;
+        int logOffsetY = GameData.GAME_HEIGHT + borderSpacing * 3 + borderWidth;
+
+        final int logFontSize = 20;
+        for(var entry : GameData.logBuffer) {
+            LogEntry le = (LogEntry) entry;
+            Raylib.DrawText(le.getMessage(), logOffsetX, logOffsetY, logFontSize, le.getColor());
+            logOffsetY += logFontSize + borderSpacing;
+        }
+
+
+
+
+        int invetoryPannelY = GameData.WINDOW_HEIGHT - 200;
+        //Inventory back-panel
+        Raylib.DrawRectangle(GameData.GAME_WIDTH, invetoryPannelY,
+                GameData.INVENTORY_WIDTH, GameData.WINDOW_HEIGHT, data.texturePack.getUiColorBackground());
+        //Inventory border
+        Raylib.DrawRectangle(GameData.GAME_WIDTH + borderSpacing, invetoryPannelY + borderSpacing,
+                borderWidth, GameData.WINDOW_HEIGHT, data.texturePack.getUiColorBorder());
+        Raylib.DrawRectangle(GameData.GAME_WIDTH + GameData.INVENTORY_WIDTH - 2 * borderSpacing, invetoryPannelY + borderSpacing,
+                borderWidth, GameData.WINDOW_HEIGHT, data.texturePack.getUiColorBorder());
+        Raylib.DrawRectangle(GameData.GAME_WIDTH + borderSpacing, invetoryPannelY + borderSpacing,
+                GameData.INVENTORY_WIDTH - 2 * borderSpacing - 2 * borderWidth, borderWidth, data.texturePack.getUiColorBorder());
+
+        int baseInvOffsetX = GameData.GAME_WIDTH + 4 * borderSpacing + borderWidth;
+        int baseInvOffsetY = invetoryPannelY + 4 * borderSpacing + borderWidth;
+        int invOffsetX = baseInvOffsetX;
+        int invOffsetY = baseInvOffsetY;
+        final int fontSize = 20;
+        //Player avatar
+        EntityData player = data.levelMaps[GameData.currentLevel].player;
+        final Texture playerTx = data.texturePack.getEntities().get(player.type);
+        Raylib.DrawTextureEx(playerTx, new Jaylib.Vector2(invOffsetX, invOffsetY), 0, 2.0f, Jaylib.WHITE);
+        invOffsetX += playerTx.width() * 2 + borderSpacing;
+        invOffsetY += playerTx.height() / 2.f * 2 - fontSize;
+        final StatSheet statsAfterItems = player.getStatsAfterItems();
+        String hpText = "HP(" + statsAfterItems.currentHealth + "/" + statsAfterItems.maxHealth + ")";
+        Raylib.DrawText(hpText, invOffsetX, invOffsetY, fontSize, data.texturePack.getTxColorNormal());
+        invOffsetY += fontSize + borderSpacing;
+        int hpBarWidth = 150;
+        int hpBarHeight = 13;
+        int hpBarFilled = (int)((float) hpBarWidth * ((float) statsAfterItems.currentHealth / (float) statsAfterItems.maxHealth));
+        Raylib.DrawRectangle(invOffsetX, invOffsetY, hpBarFilled, hpBarHeight, data.texturePack.getTxColorGood());
+        Raylib.DrawRectangleLines(invOffsetX, invOffsetY, hpBarWidth, hpBarHeight, data.texturePack.getUiColorBorder());
+        invOffsetX = baseInvOffsetX;
+        invOffsetY = (int) (baseInvOffsetY + playerTx.height() * 2.f + borderSpacing * 2);
+
+        String strString = "STR : " + statsAfterItems.strength;
+        String defString = "DEF : " + statsAfterItems.defence;
+        Raylib.DrawText(strString, invOffsetX, invOffsetY, fontSize, data.texturePack.getTxColorNormal());
+        invOffsetY += fontSize + borderSpacing * 2;
+        Raylib.DrawText(defString, invOffsetX, invOffsetY, fontSize, data.texturePack.getTxColorNormal());
+    }
+
     private void drawAll() {
         EntityData player = data.levelMaps[GameData.currentLevel]
                 .entityList.stream()
                 .filter((e) -> e.type == Entity.PLAYER)
                 .findFirst()
                 .orElse(null);
-
-        //if(player != null ) {
-        //    Vector2 target = player.tilePosition;
-        //    cam.target(Mapping.mapToWorld(target));
-        //}
 
         BeginDrawing();
         ClearBackground(data.texturePack.getBgColor());
@@ -100,6 +166,8 @@ public class Renderer {
         drawMap();
         drawEntities(); //NOTE(Al-Andrew): The entities should be drawn on the top-most level
         EndMode2D();
+
+        drawUi();
 
         EndDrawing();
     }

@@ -11,7 +11,7 @@ public class RaycastingVisibility extends Visibility {
     }
 
     private void traceLine(Raylib.Vector2 origin, int x1, int y1, boolean[][] vis) {
-        float rate = 1.f / 1000.f;
+        float rate = 1.f / 100.f;
         float dx = (x1 - origin.x()) * rate;
         float dy = (y1 - origin.y()) * rate;
         float x = origin.x();
