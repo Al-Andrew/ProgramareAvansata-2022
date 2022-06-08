@@ -1,7 +1,6 @@
 package com.pearl.records;
 
 public enum Tile {
-    BACKGROUND,
     DUNGEON_FLOOR,
     DUNGEON_BRICK_WALL(true),
     DUNGEON_SLATE_WALL,
@@ -12,7 +11,7 @@ public enum Tile {
     STAIRWAY_DOWN,
     ;
 
-    boolean solid;
+    final boolean solid;
 
     Tile() {
         this.solid = false;

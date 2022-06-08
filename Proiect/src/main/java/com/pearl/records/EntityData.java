@@ -10,12 +10,14 @@ public class EntityData {
     public Entity type;
     public Raylib.Vector2 tilePosition;
     public Brain brain;
-    public StatSheet stats = null;
+    private StatSheet stats;
+
 
 
     private EntityData(Entity type, int tileX, int tileY) {
         this.type = type;
         this.tilePosition = new Jaylib.Vector2(tileX, tileY);
+        this.stats = type.getBaseStats();
     }
 
     public static EntityData withPosition(int x, int y, Entity type) {
@@ -23,16 +25,21 @@ public class EntityData {
         try {
             var constructor = ret.type.getBrainClass().getConstructor(EntityData.class);
             ret.brain = (Brain) constructor.newInstance(ret);
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
+        } catch (InstantiationException | NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
             e.printStackTrace();
         }
 
         return ret;
+    }
+
+    public StatSheet getStatsAfterItems() {
+        return this.stats;
+    }
+
+    public int getTileX(){
+        return (int) this.tilePosition.x();
+    }
+    public int getTileY(){
+        return (int) this.tilePosition.y();
     }
 }
