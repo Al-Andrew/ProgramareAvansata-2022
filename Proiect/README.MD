@@ -7,4 +7,4 @@
 - Multi-threading, planul ar fi sa avem un thread pentru rendering unul pentru input polling si unul pentru game logic
 - JSON - pentru save/load, texturepacks
 
-
+## TOTDO : SCREENSHOTS
