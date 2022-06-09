@@ -3,7 +3,7 @@ package com.pearl.records;
 import com.pearl.update.brains.*;
 
 public enum Entity {
-    PLAYER(PlayerBrain.class, new StatSheet(10, 10, 5, 5), "attacked"),
+    PLAYER(PlayerBrain.class, new StatSheet(1, 1, 5, 5), "attacked"),
     UP_STAIR(StairUpBrain.class),
     DOWN_STAIR(StairDownBrain.class),
     DOOR,

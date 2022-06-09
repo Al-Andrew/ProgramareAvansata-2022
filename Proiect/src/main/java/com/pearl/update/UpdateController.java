@@ -1,7 +1,9 @@
 package com.pearl.update;
 
+import com.pearl.records.Entity;
 import com.pearl.records.EntityData;
 import com.pearl.records.GameData;
+import com.pearl.records.GameOver;
 import com.pearl.util.Mapping;
 import com.raylib.Jaylib;
 import com.raylib.Raylib;
@@ -25,7 +27,10 @@ public class UpdateController implements Runnable {
 
         while(GameData.isRunning) {
             InputCollector.collectInput(data.inputData);
-            GameData.isRunning = !WindowShouldClose();
+            GameData.isRunning = !WindowShouldClose() && GameData.isRunning;
+
+            if(GameData.gameOver != GameOver.NONE)
+                continue;
 
             current = LocalDateTime.now();
             oldCurrentLevel = GameData.currentLevel; //We need to stop letting actions go trough if the level changed
@@ -43,7 +48,12 @@ public class UpdateController implements Runnable {
 
             data.levelMaps[GameData.currentLevel]
                     .entityList
-                    .removeIf(entt -> entt.getStatsAfterItems().currentHealth <= 0);
+                    .removeIf(entt -> {
+                        boolean shouldRemove = entt.getStatsAfterItems().currentHealth <= 0;
+                        if(entt.type == Entity.PLAYER && shouldRemove)
+                            GameData.gameOver = GameOver.LOSE;
+                        return shouldRemove;
+                    });
 
             updateCameraSmooth();
 

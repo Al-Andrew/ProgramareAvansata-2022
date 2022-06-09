@@ -1,14 +1,17 @@
 package com.pearl.graphics;
 
 import com.pearl.records.*;
+import com.pearl.update.UpdateController;
 import com.raylib.Jaylib;
 import com.raylib.Raylib;
+
+import java.io.IOException;
 
 import static com.pearl.util.Mapping.mapToWorld;
 import static com.raylib.Raylib.*;
 
 public class Renderer {
-    private final GameData data;
+    private GameData data;
 
     public Renderer(GameData data) {
         this.data = data;
@@ -170,8 +173,50 @@ public class Renderer {
         EndMode2D();
 
         drawUi();
+        if(GameData.gameOver != GameOver.NONE)
+            drawGameOverScreen();
 
         EndDrawing();
+    }
+
+    private void drawGameOverScreen() {
+        Raylib.DrawRectangle(0,0,
+                GameData.WINDOW_WIDTH, GameData.WINDOW_HEIGHT, new Jaylib.Color(14, 17, 23, 127));
+        int w = 300;
+        int h = 200;
+        int offX = GameData.WINDOW_WIDTH / 2 - w / 2;
+        int offy = GameData.WINDOW_HEIGHT / 2 - h / 2;
+        Raylib.DrawRectangle(offX, offy, w ,h , GameData.texturePack.getUiColorBackground());
+        String text;
+        Raylib.Color color;
+        if(GameData.gameOver == GameOver.LOSE) {
+            text = "You LOST";
+            color = GameData.texturePack.getTxColorBad();
+        } else {
+            text = "You WON!";
+            color = GameData.texturePack.getTxColorGood();
+        }
+
+        h = 30;
+        w = Raylib.MeasureText(text, h);
+        offX = GameData.WINDOW_WIDTH / 2  - w / 2;
+        offy = GameData.WINDOW_HEIGHT / 2  - h;
+        Raylib.DrawText(text, offX, offy, h, color);
+
+        w = 80;
+        offX = GameData.WINDOW_WIDTH / 2 - 10 - w;
+        offy = GameData.WINDOW_HEIGHT / 2 + 10;
+
+        if(Jaylib.GuiButton(new Jaylib.Rectangle(offX, offy, w, h), "Play again?")) {
+            GameData.reset();
+        }
+        offX = GameData.WINDOW_WIDTH / 2 + 10;
+        if(Jaylib.GuiButton(new Jaylib.Rectangle(offX, offy, w, h), "Exit")) {
+            GameData.isRunning = false;
+        }
+
+
+
     }
 
     public void run() {

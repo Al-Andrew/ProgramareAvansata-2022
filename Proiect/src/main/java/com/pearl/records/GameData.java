@@ -32,9 +32,9 @@ public class GameData {
     public static int currentLevel = 0;
     public static int LEVEL_COUNT;
     public static GameOver gameOver = GameOver.NONE;
-    public LevelData[] levelMaps;
+    public static LevelData[] levelMaps;
     public final InputData inputData = new InputData();
-    public final GraphicsData graphicsData = new GraphicsData(this);
+    public GraphicsData graphicsData = new GraphicsData(this);
     public static final CircularFifoBuffer logBuffer = new CircularFifoBuffer(5);
 
     public GameData() throws IOException {
@@ -92,4 +92,28 @@ public class GameData {
         }
     }
 
+    public static void reset() {
+        try {
+            texturePack = TexturePack.loadFromFile("assets/default.json");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        TerrainGenerator[] generatorList = new TerrainGenerator[]{
+                new DungeonGenerator(),
+                new DungeonGenerator(),
+        };
+        GameData.LEVEL_COUNT = generatorList.length;
+        levelMaps = new LevelData[LEVEL_COUNT];
+
+        for(int i = 0; i < LEVEL_COUNT; ++i) {
+            levelMaps[i] = new LevelData((int) TILEMAP_SIZE.x(), (int) TILEMAP_SIZE.y());
+            levelMaps[i].populate(generatorList[i], i);
+        }
+
+        addLogEntryNormal("Welcome to PEARL!");
+        addLogEntryNormal("At the bottom of the dungeon lies your prize:");
+        addLogEntryGood("The amulet of YANDOR!!!");
+        gameOver = GameOver.NONE;
+        texturePack.loadTextures();
+    }
 }
