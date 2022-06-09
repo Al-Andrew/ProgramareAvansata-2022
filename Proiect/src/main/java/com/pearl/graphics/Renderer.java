@@ -48,6 +48,8 @@ public class Renderer {
                 continue;
             }
             Texture tx = data.texturePack.getEntities().get(ent.type);
+            if(tx == null)
+                continue;
             Vector2 ps =  mapToWorld(ent.tilePosition);
 
             DrawTextureV(tx, ps, Jaylib.WHITE);
